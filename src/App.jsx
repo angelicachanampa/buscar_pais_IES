@@ -37,7 +37,7 @@ function App() {
 
           setHistorial((prev) => {
             const newHistory = [...prev];
-            filtrarPaises.forEach((country) => {
+            filtrarPaises.forEach((country) => { // se agrego los paises filtrados
               if (!newHistory.some((item) => item.cca3 === country.cca3)) {
                 newHistory.unshift({
                   name: country.name.common,
