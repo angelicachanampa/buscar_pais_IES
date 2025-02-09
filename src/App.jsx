@@ -18,14 +18,16 @@ function App() {
     fetch(`https://restcountries.com/v3.1/name/${buscar}`)
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) {
+        if (Array.isArray(data)) { // verifico si el array existe
 
+          // filtro la busqueda del país con los datos encontrados en buscar del input
           const filtrarPaises = data.filter((pais) => pais.name.common.toLowerCase() === buscar.toLowerCase());
           const count = filtrarPaises.length;
 
           console.log("cantidad de paises encontrados: ",count);
 
-          if (count > 0) {
+          
+          if (count > 0) {// al tener la cantidad de países encontrados
             filtrarPaises.forEach((nombre) => {
               setCountries([nombre]);  // Establecer el país que coincide
             });
@@ -61,7 +63,6 @@ function App() {
   return (
     <>
     <h1>Buscador de Países</h1>
-      <label className="titulo" htmlFor="buscar">Buscar Países</label>
       <div className="container">
       <input
         className="input-pais"        
@@ -115,6 +116,10 @@ function App() {
           </ul>
         )}
       </div>
+    </div>
+    <div>
+      <h3>Angelica Beatriz Chanampa - IES 2025</h3>
+      <h4>Profesor Pablo Sangenis</h4>
     </div>
     </>
   )
