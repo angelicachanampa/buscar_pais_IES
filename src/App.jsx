@@ -3,24 +3,24 @@ import { useState, useEffect } from "react";
 import './App.css'
 
 function App() {
-  const [query, setQuery] = useState("");
+  const [buscar, setBuscar] = useState("");
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchHistory, setSearchHistory] = useState([]);
+  const [historial, setHistorial] = useState([]);
 
   useEffect(() => {
-    if (query.length < 3) {
+    if (buscar.length < 3) {
       setCountries([]);
       return;
     }
     setLoading(true);
 
-    fetch(`https://restcountries.com/v3.1/name/${query}`)
+    fetch(`https://restcountries.com/v3.1/name/${buscar}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
 
-          const filtrarPaises = data.filter((pais) => pais.name.common.toLowerCase().slice(0,3) === query.toLowerCase().slice(0,3));
+          const filtrarPaises = data.filter((pais) => pais.name.common.toLowerCase() === buscar.toLowerCase());
           const count = filtrarPaises.length;
 
           console.log("cantidad de paises encontrados: ",count);
@@ -30,13 +30,14 @@ function App() {
               setCountries([nombre]);  // Establecer el país que coincide
             });
           } else {
-            console.log("no devuelve nada");
+            console.log("No devuelve nada...");
           }
 
           console.log(data);
-          setSearchHistory((prev) => {
+
+          setHistorial((prev) => {
             const newHistory = [...prev];
-            data.forEach((country) => {
+            filtrarPaises.forEach((country) => {
               if (!newHistory.some((item) => item.cca3 === country.cca3)) {
                 newHistory.unshift({
                   name: country.name.common,
@@ -55,7 +56,7 @@ function App() {
       })
       .catch(() => setCountries([]))
       .finally(() => setLoading(false));
-  }, [query]);
+  }, [buscar]);
 
   return (
     <>
@@ -66,8 +67,8 @@ function App() {
         className="input-pais"        
         type="text"
         placeholder="Buscar país..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={buscar}
+        onChange={(e) => setBuscar(e.target.value)}
         />
 
         
@@ -96,11 +97,11 @@ function App() {
 
       <div className="historial-busqueda">
         <h3>Historial de Búsqueda</h3>
-        {searchHistory.length === 0 ? (
+        {historial.length === 0 ? (
           <p>No hay búsquedas recientes.</p>
         ) : (
           <ul>
-            {searchHistory.map((item) => (
+            {historial.map((item) => (
               <li key={item.cca3} className="historial-busqueda-container">
                 <strong>{item.name}</strong> - Capital: {item.capital} - Población: {item.population.toLocaleString()}
                 <br />
