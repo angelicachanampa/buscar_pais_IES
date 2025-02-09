@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function Buscar({ buscar, setBuscar }) {
   return (
     <input
@@ -9,5 +11,10 @@ function Buscar({ buscar, setBuscar }) {
     />
   );
 }
+
+Buscar.propTypes = {
+    buscar: PropTypes.string.isRequired,
+    setBuscar: PropTypes.func.isRequired,
+  };
 
 export default Buscar;

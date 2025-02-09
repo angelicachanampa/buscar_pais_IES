@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-//import { motion } from "framer-motion";
+import Buscar from "./components/Buscar";
 import './App.css'
 
 function App() {
@@ -64,13 +64,7 @@ function App() {
     <>
     <h1>Buscador de Países</h1>
       <div className="container">
-      <input
-        className="input-pais"        
-        type="text"
-        placeholder="Buscar país..."
-        value={buscar}
-        onChange={(e) => setBuscar(e.target.value)}
-        />
+      <Buscar buscar={buscar} setBuscar={setBuscar} />
 
         
       {loading && <p>Cargando...</p>}
