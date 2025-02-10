@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import Buscar from "./components/Buscar";
+import Resultados from "./components/Resultados";
+import Historial from "./components/Historial";
 import './App.css'
 
 function App() {
@@ -65,51 +67,10 @@ function App() {
     <h1>Buscador de Países</h1>
       <div className="container">
       <Buscar buscar={buscar} setBuscar={setBuscar} />
-
-        
       {loading && <p>Cargando...</p>}
+      <Resultados countries={countries} />
+      <Historial historial={historial} />
 
-
-      <div className="mostrar-resultados">
-        {countries.length === 0 ? (
-          <p>No hay resultados para mostrar.</p>
-        ) : (
-          countries.map((country) => (
-            <div key={country.cca3} className="mostrar-resultados-container">
-              <strong>{country.name.common}</strong> - Capital: {country.capital?.[0] || "N/A"} - Población: {country.population.toLocaleString()}
-              <br />
-              <img
-                src={country.flags.svg}
-                alt={`Bandera de ${country.name.common}`}
-                className="mostrar-resultados-imagen"
-              />
-            </div>
-          ))
-        )}
-      </div>
-
-
-
-      <div className="historial-busqueda">
-        <h3>Historial de Búsqueda</h3>
-        {historial.length === 0 ? (
-          <p>No hay búsquedas recientes.</p>
-        ) : (
-          <ul>
-            {historial.map((item) => (
-              <li key={item.cca3} className="historial-busqueda-container">
-                <strong>{item.name}</strong> - Capital: {item.capital} - Población: {item.population.toLocaleString()}
-                <br />
-                <img
-                  src={item.flag}
-                  alt={`Bandera de ${item.name}`}
-                  className="historial-busqueda-imagen"
-                />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
     </div>
     <div>
       <h3>Angelica Beatriz Chanampa - IES 2025</h3>
